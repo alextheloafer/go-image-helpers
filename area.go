@@ -121,9 +121,9 @@ func combineRectsOnY(rects []Rectangle, dividers []int) ([]Rectangle, error) {
 				return nil, errors.New("two rectangles with same X has different width")
 			}
 
-			intersects, _ := GetRectIntersection(prev, r)
+			intersects, _ := prev.Intersect(r)
 			if intersects {
-				prev = *GetRectUnion(prev, r)
+				prev = *prev.Union(r)
 			} else {
 				totalCombined = append(totalCombined, prev)
 				prev = r

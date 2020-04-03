@@ -42,9 +42,9 @@ func TestArea(t *testing.T) {
 	assert.Equal(9, area)
 }
 
-func TestGetRectUnion(t *testing.T) {
+func TesUnion(t *testing.T) {
 	assert := assert.New(t)
-	union := GetRectUnion(rect1, rect2)
+	union := rect1.Union(rect2)
 
 	correct := Rectangle{1, 2, 5, 7}
 
@@ -53,14 +53,14 @@ func TestGetRectUnion(t *testing.T) {
 
 func TestGetRectIntersection(t *testing.T) {
 	assert := assert.New(t)
-	intersects, intersection := GetRectIntersection(rect1, rect2)
+	intersects, intersection := rect1.Intersect(rect2)
 
 	correct := Rectangle{2, 3, 4, 5}
 
 	assert.True(intersects)
 	assert.Equal(correct, *intersection)
 
-	intersects, intersection = GetRectIntersection(rect1, rect3)
+	intersects, intersection = rect1.Intersect(rect3)
 
 	assert.False(intersects)
 	assert.Nil(intersection)

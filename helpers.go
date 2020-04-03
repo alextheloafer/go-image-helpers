@@ -34,23 +34,23 @@ func (r *Rectangle) Height() int {
 	return r.Y2 - r.Y1
 }
 
-// GetRectUnion returns union of two rectangles
-func GetRectUnion(r1, r2 Rectangle) *Rectangle {
+// Union returns union of two rectangles
+func (r *Rectangle) Union(r1 Rectangle) *Rectangle {
 	return &Rectangle{
-		X1: int(math.Min(float64(r1.X1), float64(r2.X1))),
-		X2: int(math.Max(float64(r1.X2), float64(r2.X2))),
-		Y1: int(math.Min(float64(r1.Y1), float64(r2.Y1))),
-		Y2: int(math.Max(float64(r1.Y2), float64(r2.Y2))),
+		X1: int(math.Min(float64(r.X1), float64(r1.X1))),
+		X2: int(math.Max(float64(r.X2), float64(r1.X2))),
+		Y1: int(math.Min(float64(r.Y1), float64(r1.Y1))),
+		Y2: int(math.Max(float64(r.Y2), float64(r1.Y2))),
 	}
 }
 
-// GetRectIntersection returns if two rectangles intersects
+// Intersect returns if two rectangles intersects
 // and intersection rectangle.
-func GetRectIntersection(r1, r2 Rectangle) (bool, *Rectangle) {
-	x1 := int(math.Max(float64(r1.X1), float64(r2.X1)))
-	x2 := int(math.Min(float64(r1.X2), float64(r2.X2)))
-	y1 := int(math.Max(float64(r1.Y1), float64(r2.Y1)))
-	y2 := int(math.Min(float64(r1.Y2), float64(r2.Y2)))
+func (r *Rectangle) Intersect(r1 Rectangle) (bool, *Rectangle) {
+	x1 := int(math.Max(float64(r.X1), float64(r1.X1)))
+	x2 := int(math.Min(float64(r.X2), float64(r1.X2)))
+	y1 := int(math.Max(float64(r.Y1), float64(r1.Y1)))
+	y2 := int(math.Min(float64(r.Y2), float64(r1.Y2)))
 	if x1 >= x2 || y1 >= y2 {
 		return false, nil
 	}
