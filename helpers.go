@@ -1,13 +1,10 @@
+// Package helpers provides types, functions and methods
+// that often used in image processing
 package helpers
 
 import (
 	"math"
 )
-
-// Rectangle is a struct that implements rectangle
-type Rectangle struct {
-	X1, Y1, X2, Y2 int
-}
 
 // BBoxToRect transforms BBox coordinates to Rectangle
 func BBoxToRect(tlx, bry, w, h int) *Rectangle {
@@ -19,19 +16,26 @@ func BBoxToRect(tlx, bry, w, h int) *Rectangle {
 	}
 }
 
+// Filter filters array of rectangles based on condition
+func Filter(rects []Rectangle, filterFunc func(rect Rectangle) bool) []Rectangle {
+	var filtered []Rectangle
+	for i := range rects {
+		if filterFunc(rects[i]) {
+			filtered = append(filtered, rects[i])
+		}
+	}
+
+	return filtered
+}
+
+// Rectangle is a struct that implements rectangle
+type Rectangle struct {
+	X1, Y1, X2, Y2 int
+}
+
 // Area calculates the area of the rectangle
 func (r *Rectangle) Area() int {
 	return r.Width() * r.Height()
-}
-
-// Width returns width of the rectangle
-func (r *Rectangle) Width() int {
-	return r.X2 - r.X1
-}
-
-// Height returns height of the rectangle
-func (r *Rectangle) Height() int {
-	return r.Y2 - r.Y1
 }
 
 // Equal returns if rectangle equal r1 or not
@@ -39,14 +43,9 @@ func (r *Rectangle) Equal(r1 Rectangle) bool {
 	return r.X1 == r1.X1 && r.X2 == r1.X2 && r.Y1 == r1.Y1 && r.Y2 == r1.Y2
 }
 
-// Union returns union of two rectangles
-func (r *Rectangle) Union(r1 Rectangle) *Rectangle {
-	return &Rectangle{
-		X1: int(math.Min(float64(r.X1), float64(r1.X1))),
-		X2: int(math.Max(float64(r.X2), float64(r1.X2))),
-		Y1: int(math.Min(float64(r.Y1), float64(r1.Y1))),
-		Y2: int(math.Max(float64(r.Y2), float64(r1.Y2))),
-	}
+// Height returns height of the rectangle
+func (r *Rectangle) Height() int {
+	return r.Y2 - r.Y1
 }
 
 // Intersect returns if two rectangles intersects
@@ -67,14 +66,17 @@ func (r *Rectangle) Intersect(r1 Rectangle) (bool, *Rectangle) {
 	}
 }
 
-// Filter filters array of rectangles based on condition
-func Filter(rects []Rectangle, filterFunc func(rect Rectangle) bool) []Rectangle {
-	var filtered []Rectangle
-	for i := range rects {
-		if filterFunc(rects[i]) {
-			filtered = append(filtered, rects[i])
-		}
+// Union returns union of two rectangles
+func (r *Rectangle) Union(r1 Rectangle) *Rectangle {
+	return &Rectangle{
+		X1: int(math.Min(float64(r.X1), float64(r1.X1))),
+		X2: int(math.Max(float64(r.X2), float64(r1.X2))),
+		Y1: int(math.Min(float64(r.Y1), float64(r1.Y1))),
+		Y2: int(math.Max(float64(r.Y2), float64(r1.Y2))),
 	}
+}
 
-	return filtered
+// Width returns width of the rectangle
+func (r *Rectangle) Width() int {
+	return r.X2 - r.X1
 }

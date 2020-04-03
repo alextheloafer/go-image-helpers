@@ -42,6 +42,13 @@ func TestArea(t *testing.T) {
 	assert.Equal(9, area)
 }
 
+func TestEqual(t *testing.T) {
+	assert := assert.New(t)
+
+	assert.True(rect1.Equal(rect1))
+	assert.False(rect1.Equal(rect2))
+}
+
 func TesUnion(t *testing.T) {
 	assert := assert.New(t)
 	union := rect1.Union(rect2)
