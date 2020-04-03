@@ -30,9 +30,9 @@ var rect3 = Rectangle{
 
 var rect4 = Rectangle{
 	X1: 3,
-	Y1: 4,
+	Y1: 6,
 	X2: 6,
-	Y2: 6,
+	Y2: 8,
 }
 
 func TestArea(t *testing.T) {
@@ -84,5 +84,17 @@ func TestGetTotalArea(t *testing.T) {
 
 	area, err := GetTotalArea(rects)
 	assert.Nil(err)
-	assert.Equal(25, area)
+	assert.Equal(27, area)
 }
+
+// func TestGroupRectangles(t *testing.T) {
+// 	assert := assert.New(t)
+//
+// 	rects := []Rectangle{rect1, rect2, rect3, rect4}
+//
+// 	correctGroup1 := []Rectangle{rect1, rect2, rect4}
+// 	correctGroup2 := []Rectangle{rect3}
+// 	correct := [][]Rectangle{correctGroup1, correctGroup2}
+//
+// 	GroupRectangles(rects)
+// }
