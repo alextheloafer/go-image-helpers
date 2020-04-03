@@ -34,6 +34,11 @@ func (r *Rectangle) Height() int {
 	return r.Y2 - r.Y1
 }
 
+// Equal returns if rectangle equal r1 or not
+func (r *Rectangle) Equal(r1 Rectangle) bool {
+	return r.X1 == r1.X1 && r.X2 == r1.X2 && r.Y1 == r1.Y1 && r.Y2 == r1.Y2
+}
+
 // Union returns union of two rectangles
 func (r *Rectangle) Union(r1 Rectangle) *Rectangle {
 	return &Rectangle{
